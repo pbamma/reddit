@@ -32,5 +32,5 @@ implementation requirements
 
 # Dev Notes
 * Would love to have a data source that I can format, but since the API returns links, not much I can do in a short time.
-
+* WARNING: This app allows arbitrary loads and should not be put into production this way.  @see Info.plist
 
