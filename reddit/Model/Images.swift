@@ -1,0 +1,58 @@
+//
+//  Images.swift
+//
+//  Created by Philip Starner on 3/20/18
+//  Copyright (c) Philip Starner. All rights reserved.
+//
+
+import Foundation
+import SwiftyJSON
+
+public struct Images {
+
+  // MARK: Declaration for string constants to be used to decode and also serialize.
+  private struct SerializationKeys {
+    static let resolutions = "resolutions"
+    static let id = "id"
+    static let source = "source"
+    static let variants = "variants"
+  }
+
+  // MARK: Properties
+  public var resolutions: [Resolutions]?
+  public var id: String?
+  public var source: Source?
+  public var variants: Variants?
+
+  // MARK: SwiftyJSON Initializers
+  /// Initiates the instance based on the object.
+  ///
+  /// - parameter object: The object of either Dictionary or Array kind that was passed.
+  /// - returns: An initialized instance of the class.
+  public init(object: Any) {
+    self.init(json: JSON(object))
+  }
+
+  /// Initiates the instance based on the JSON that was passed.
+  ///
+  /// - parameter json: JSON object from SwiftyJSON.
+  public init(json: JSON) {
+    if let items = json[SerializationKeys.resolutions].array { resolutions = items.map { Resolutions(json: $0) } }
+    id = json[SerializationKeys.id].string
+    source = Source(json: json[SerializationKeys.source])
+    variants = Variants(json: json[SerializationKeys.variants])
+  }
+
+  /// Generates description of the object in the form of a NSDictionary.
+  ///
+  /// - returns: A Key value pair containing all valid values in the object.
+  public func dictionaryRepresentation() -> [String: Any] {
+    var dictionary: [String: Any] = [:]
+    if let value = resolutions { dictionary[SerializationKeys.resolutions] = value.map { $0.dictionaryRepresentation() } }
+    if let value = id { dictionary[SerializationKeys.id] = value }
+    if let value = source { dictionary[SerializationKeys.source] = value.dictionaryRepresentation() }
+    if let value = variants { dictionary[SerializationKeys.variants] = value.dictionaryRepresentation() }
+    return dictionary
+  }
+
+}
