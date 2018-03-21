@@ -15,6 +15,15 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         
+        setupUI()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func setupUI() {
         let webView = UIWebView(frame: self.view.frame)
         self.view.addSubview(webView)
         
@@ -30,17 +39,6 @@ class DetailViewController: UIViewController {
                 webView.loadRequest(request)
             }
         }
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }
